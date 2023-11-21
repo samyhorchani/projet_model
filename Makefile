@@ -1,3 +1,4 @@
+# Samy HORCHANI (n° étudiant : 28706765)
 all : main
 
 complex.o : complex.c complex.h

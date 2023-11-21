@@ -18,6 +18,6 @@ Complex subtract(Complex a, Complex b); // réalise la soustraction entre deux n
 Complex multiply(Complex a, Complex b); // réalise la multiplication entre deux nombres complexe
 Complex divide(Complex a, Complex b);   // réalise la division entre deux nombres complexe
 Complex conjugate(Complex a);           // rend le conjugué d'un nombre complexe
-void display(Complex a); //affiche un nombre complexe
+void display(Complex a); //affiche un nombre complexe dans le terminal sous la forme (a + bi)
 
 #endif
