@@ -1,5 +1,10 @@
+/* Samy HORCHANI (n°étudiant : 28706765)*/
+
+#include "naive_mult_algo.h"
 #include <stdio.h>
-/* Multiplication */
+
+/* Implémentation de l'algorithme de multiplication naïve de deux polynomes avec des coefficients entiers */
+
 void multiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2){
     
     if(p1 == NULL || p2 == NULL){
