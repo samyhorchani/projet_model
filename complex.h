@@ -13,11 +13,13 @@ typedef struct Complex
 
 /* Opération de base */
 
-Complex add(Complex a, Complex b);      // réalise l'addition entre deux nombres complexe
-Complex subtract(Complex a, Complex b); // réalise la soustraction entre deux nombres complexe
-Complex multiply(Complex a, Complex b); // réalise la multiplication entre deux nombres complexe
-Complex divide(Complex a, Complex b);   // réalise la division entre deux nombres complexe
-Complex conjugate(Complex a);           // rend le conjugué d'un nombre complexe
-void display(Complex a); //affiche un nombre complexe dans le terminal sous la forme (a + bi)
+Complex complex_add(Complex a, Complex b);      // réalise l'addition entre deux nombres complexe
+Complex complex_subtract(Complex a, Complex b); // réalise la soustraction entre deux nombres complexe
+Complex complex_multiply(Complex a, Complex b); // réalise la multiplication entre deux nombres complexe
+Complex complex_divide(Complex a, Complex b);   // réalise la division entre deux nombres complexe
+Complex complex_conjugate(Complex a);           // rend le conjugué d'un nombre complexe
+Complex complex_exponential(Complex a);
+Complex complex_power(Complex a, int n);
+void display_complex(Complex a); //affiche un nombre complexe dans le terminal sous la forme (a + bi)
 
 #endif

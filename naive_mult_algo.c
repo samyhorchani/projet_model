@@ -2,19 +2,32 @@
 
 #include "naive_mult_algo.h"
 #include <stdio.h>
-
+#include <stdlib.h>
 /* Implémentation de l'algorithme de multiplication naïve de deux polynomes avec des coefficients entiers */
 
-void multiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2){
+int* multiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2){
+    /* Entrée : 
+        - Deux tableaux d'entier p1 et p2 où chaque case i represente le coefficient de degré i des polynomes p1 et p2.
+        - La taille correspondante des deux tableaux p1 et p2.
     
+       Sortie :
+        - Le polynome obtenue par la multiplication des deux polynomes p1 et p2.
+    */
+
     if(p1 == NULL || p2 == NULL){
-        printf("polynome 1 ou polynome 2 fournit non valide");
-        return;
+        printf("INVALID INPUT : Polynome 1 ou Polynome 2 est NULL");
+        return NULL;
     }
+    
 
     /* création du polynome résultat */
     int size_res = size_p1 + size_p2 - 1;
-    int result[size_res];
+    int *result = malloc( size_res * sizeof(int));
+
+    if(result == NULL){
+        printf("ALLOCATION ERROR : Erreur lors de l'allocation du polynome résultat");
+        return NULL;
+    }
 
     /* initialisation du polynome */
 
@@ -29,10 +42,17 @@ void multiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2){
         }
     }
 
+    return result;
+}
+
+void display_polynome(int* p, int size){
     printf("Result polynomial: ");
-    for (int i = 0; i < size_res; i++)
-    {
-        printf("%d ", result[i]);
+    for (int i = 0; i < size ; i++){
+        printf("%d", p[i]);
+        printf("x^%d ",i);
+        if(i < size-1){
+            printf("+ ");
+        }
     }
     printf("\n");
 }

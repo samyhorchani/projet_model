@@ -3,28 +3,28 @@
 #include <stdio.h>
 #include <math.h>
 
-Complex add(Complex a, Complex b) {
+Complex complex_add(Complex a, Complex b) {
     Complex result;
     result.real = a.real + b.real;
     result.imag = a.imag + b.imag;
     return result;
 }
 
-Complex subtract(Complex a, Complex b) {
+Complex complex_subtract(Complex a, Complex b) {
     Complex result;
     result.real = a.real - b.real;
     result.imag = a.imag - b.imag;
     return result;
 }
 
-Complex multiply(Complex a, Complex b) {
+Complex complex_multiply(Complex a, Complex b) {
     Complex result;
     result.real = a.real * b.real - a.imag * b.imag;
     result.imag = a.real * b.imag + a.imag * b.real;
     return result;
 }
 
-Complex divide(Complex a, Complex b) {
+Complex complex_divide(Complex a, Complex b) {
     Complex result;
     double denom = b.real * b.real + b.imag * b.imag;
     result.real = (a.real * b.real + a.imag * b.imag) / denom;
@@ -32,7 +32,7 @@ Complex divide(Complex a, Complex b) {
     return result;
 }
 
-Complex conjugate(Complex a){
+Complex complex_conjugate(Complex a){
     Complex result;
     result.real = a.real;
     result.imag = a.imag * -1;
@@ -40,6 +40,27 @@ Complex conjugate(Complex a){
     return result;
 }
 
-void display(Complex a){
+Complex complex_exponential(Complex a) {
+    Complex result;
+
+    double exp_real = exp(a.real);
+    result.real = exp_real * cos(a.imag);
+    result.imag = exp_real * sin(a.imag);
+
+    return result;
+}
+Complex complex_power(Complex a, int n) { //possible d'utiliser la formule de moivre pour etre en O(log(n))
+    Complex result;
+    result.real = 1;
+    result.imag = 0;
+
+    for (int i = 0; i < n; i++) {
+        result = complex_multiply(result, a);
+    }
+
+    return result;
+}
+
+void display_complex(Complex a){
     printf("%.2f + %.2fi\n", a.real, a.imag);
 }
