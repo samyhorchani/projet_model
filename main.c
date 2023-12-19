@@ -1,6 +1,6 @@
 /* Samy HORCHANI (n° étudiant : 28706765)*/
 #include "complex.h"
-#include "naive_mult_algo.h"
+#include "multiplyPolynomials.h"
 #include "FFT_and_invFFT.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,10 +39,7 @@ int main(int argc, char const *argv[])
 
     printf("Teste de l'algorithme de multiplication de polynome naif\n");
 
-    int* p_mult = multiplyPolynomials(p1, size_p1, p2, size_p2);
-    int size_p_mult = size_p1 + size_p2 - 1;
-    display_polynome(p_mult, size_p_mult);
-    free(p_mult);
+    naiveMultiplyPolynomials(p1, size_p1, p2, size_p2);
 
     // printf("Teste de la fonction verify\n");
     // for(int i = 0; i<100; i++){
@@ -55,8 +52,8 @@ int main(int argc, char const *argv[])
     // }
 
     printf("Teste de la fonction FFT\n");
-    int v_1[8] = {1,2,3, 4, 5, 6, 7, 8};
-    FFT(v_1, 8);
+    int v_1[4] = {1,2,3, 4};
+    invFFT(v_1, 4);
     printf("\n");
     
     return 0;
