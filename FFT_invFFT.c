@@ -1,15 +1,14 @@
 /* Samy HORCHANI (n° étudiant : 28706765) */
 
 #include "complex.h"
-#include "FFT_and_invFFT.h"
+#include "FFT_invFFT.h"
 #include "math.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 // Implement the FFT and inverse FFT for vectors of size 2𝑘 : these functions must enlarge vectors of sizes that are not powers of 2.
 
-int verify(int number)
-{ // verifie qu'un nombre est bien une puissance de 2
+int verify(int number){
     if (number <= 0)
     {
         return 0;
@@ -18,8 +17,7 @@ int verify(int number)
     return (number & (number - 1)) == 0;
 }
 
-int power_of_2(int number)
-{
+int power_of_2(int number){
     if (verify(number))
     {
         return number;
@@ -28,16 +26,17 @@ int power_of_2(int number)
     int n = (int)ceil(log2(number));
     return (int)pow(2, n);
 }
+
 void FFT_rec(Complex *v, int n, Complex *res, int step){
     if(n == 1){
         res[0] = v[0];
         return;
     }
-
+    
     Complex pi2_I = {0., (2. * M_PI/n)}; // 2pi*i/n
     // display_complex(pi2_I);
     Complex omega = complex_exponential(pi2_I);
-    // display_complex(omega_n);
+    // display_complex(omega);
 
     FFT_rec(v,  n/2 , res, 2*step);
     FFT_rec(v + step,n/2, res + n/2, 2*step);
@@ -50,7 +49,7 @@ void FFT_rec(Complex *v, int n, Complex *res, int step){
     }
 }
 
-void FFT(int *v, int size_v){
+Complex *FFT(int *v, int size_v){
     int n = power_of_2(size_v); // retourn size_v si puissance de 2 ou la puissance de 2 la plus proche
     Complex *new_v = malloc(n * sizeof(Complex));
     for(int i = 0; i < size_v; i++){ //Creation des complexes avec le tab d'entier en utilisant ma stucture decrite dans Complex.h
@@ -71,9 +70,10 @@ void FFT(int *v, int size_v){
         printf(" ");
     }
     printf("]\n");
+    return res;
 }
 
-void invFFT(int *v, int size_v){
+Complex  *invFFT(int *v, int size_v){
     int n = power_of_2(size_v); // retourn size_v si puissance de 2 ou la puissance de 2 la plus proche
     Complex *new_v = malloc(n * sizeof(Complex));
     for(int i = 0; i < size_v; i++){ //Creation des complexes avec le tab d'entier en utilisant ma stucture decrite dans Complex.h
@@ -87,13 +87,15 @@ void invFFT(int *v, int size_v){
     Complex *res = malloc(n * sizeof(Complex));
 
     invFFT_rec(new_v, n,res , 1);
-    printf("RESULTAT FFT :\n");
+    printf("RESULTAT inverse FFT :\n");
     printf("[ ");
     for(int i = 0; i < n; i++){
         display_complex(res[i]);
         printf(" ");
     }
     printf("]\n");
+
+    return res;
 }
 
 void invFFT_rec(Complex *v, int n, Complex *res, int step){
@@ -104,7 +106,7 @@ void invFFT_rec(Complex *v, int n, Complex *res, int step){
 
     Complex pi2_I = {0., (2. * M_PI/n)}; // 2pi*i/n
     // display_complex(pi2_I);
-    Complex omega = complex_exponential(pi2_I);
+    Complex omega = complex_conjugate(complex_exponential(pi2_I));
     // display_complex(omega_n);
 
     FFT_rec(v,  n/2 , res, 2*step);
@@ -120,3 +122,4 @@ void invFFT_rec(Complex *v, int n, Complex *res, int step){
         res[i + n/2] = complex_divide(complex_subtract(p,q), n_complex);
     }
 }
+
