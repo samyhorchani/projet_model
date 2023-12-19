@@ -61,6 +61,15 @@ Complex complex_power(Complex a, int n) { //possible d'utiliser la formule de mo
     return result;
 }
 
+Complex complex_logarithm(Complex a) { // à verifier
+    Complex result;
+    result.real = log(sqrt(a.real * a.real + a.imag * a.imag));
+    result.imag = atan2(a.imag, a.real);
+
+    return result;
+}
+
+
 void display_complex(Complex a){
     printf("%.2f + %.2fi\n", a.real, a.imag);
 }

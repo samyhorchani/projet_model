@@ -44,25 +44,18 @@ int main(int argc, char const *argv[])
     display_polynome(p_mult, size_p_mult);
     free(p_mult);
 
-    printf("Teste de la fonction verify\n");
-    for(int i = 0; i<100; i++){
-        if(verify(i)){
-            printf("%d\n", i);
-        }
-        else{
-            printf("%d\n", power_of_2(i));
-        }
-    }
+    // printf("Teste de la fonction verify\n");
+    // for(int i = 0; i<100; i++){
+    //     if(verify(i)){
+    //         printf("%d\n", i);
+    //     }
+    //     else{
+    //         printf("%d\n", power_of_2(i));
+    //     }
+    // }
 
     printf("Teste de la fonction FFT\n");
-    
-    
-    Complex v1 = {-1,0};
-    Complex v2 = {2,0};
-    Complex v3 = {3,0};
-    Complex v4 = {0,0};
-    Complex v[4] = {v1,v2,v3,v4};
-    int v_1[8] = {2,1,-1,5,0,3,0,-4};
+    int v_1[8] = {1,2,3, 4, 5, 6, 7, 8};
     FFT(v_1, 8);
     printf("\n");
     

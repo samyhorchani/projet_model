@@ -20,6 +20,7 @@ Complex complex_divide(Complex a, Complex b);   // réalise la division entre de
 Complex complex_conjugate(Complex a);           // rend le conjugué d'un nombre complexe
 Complex complex_exponential(Complex a);
 Complex complex_power(Complex a, int n);
+Complex complex_logarithm(Complex a);
 void display_complex(Complex a); //affiche un nombre complexe dans le terminal sous la forme (a + bi)
 
 #endif
