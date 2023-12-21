@@ -1,28 +1,25 @@
-# Samy HORCHANI (n° étudiant : 28706765)
-all : main
+CC = gcc
+CFLAGS = -Wall -O3
 
-complex.o : complex.c complex.h
-	gcc -Wall -c complex.c
+SRC_DIR = src
+BUILD_DIR = build
+INCLUDE_DIR = include
 
-main.o : main.c
-	gcc -Wall -c main.c
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
-benchmarks.o : benchmarks.c
-	gcc -Wall -c benchmarks.c
+MAIN_EXEC = main
+DEPS = $(wildcard $(INCLUDE_DIR)/*.h)
 
-multiplyPolynomials.o : multiplyPolynomials.c multiplyPolynomials.h
-	gcc -Wall -c multiplyPolynomials.c
+all: $(MAIN_EXEC)
 
-FFT_invFFT.o : FFT_invFFT.c FFT_invFFT.h
-	gcc -Wall -c FFT_invFFT.c
+$(MAIN_EXEC): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
 
-main : main.o complex.o multiplyPolynomials.o FFT_invFFT.o
-	gcc -Wall -g -o main main.o complex.o multiplyPolynomials.o FFT_invFFT.o
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
-benchmarks : benchmarks.o complex.o multiplyPolynomials.o FFT_invFFT.o
-	gcc -Wall -g -o benchmarks benchmarks.o complex.o multiplyPolynomials.o FFT_invFFT.o
-
-zip :
-	zip projet_Samy_HORCHANI Makefile *.c README.md
 clean:
-	rm -f *.o main benchmarks
+	rm -rf $(BUILD_DIR)/* $(MAIN_EXEC)
+
+.PHONY: all clean

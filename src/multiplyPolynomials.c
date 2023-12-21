@@ -86,7 +86,7 @@ void fftMultiplyPolynomials(int P[], int size_P, int Q[], int size_Q){
     int *R = malloc(n * sizeof(int));
 
     for (int i = 0; i < n; i++) {
-        R[i] = complex_multiply(fft_P[i], fft_Q[i]).real;
+        R[i] = Complex_multiply(fft_P[i], fft_Q[i]).real;
     }
 
     free(fft_P);

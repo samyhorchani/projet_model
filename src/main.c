@@ -6,29 +6,29 @@
 #include <stdlib.h>
 
 int main(int argc, char const *argv[]){
-    printf("Test des fonctions d'arithmetique de nombre complexe :\n");
+    printf("Test des fonctions d'arithmetique de nombre Complexe :\n");
     Complex a = {1.0, 2.0};
     Complex b = {2.0, 3.0};
 
     printf("a = ");
-    display_complex(a);
+    display_Complex(a);
     printf("b = ");
-    display_complex(b);
+    display_Complex(b);
 
     printf("a + b = ");
-    display_complex(complex_add(a,b));
+    display_Complex(Complex_add(a,b));
 
     printf("a - b = ");
-    display_complex(complex_subtract(a,b));
+    display_Complex(Complex_subtract(a,b));
 
     printf("conjugué de a = ");
-    display_complex(complex_conjugate(a));
+    display_Complex(Complex_conjugate(a));
 
     printf("a * b = ");
-    display_complex(complex_multiply(a,b));
+    display_Complex(Complex_multiply(a,b));
 
     printf("a/b = ");
-    display_complex(complex_divide(a,b));
+    display_Complex(Complex_divide(a,b));
 
     int p1[] = {1,2}; // polynome 1
     int size_p1 = sizeof(p1)/sizeof(p1[0]); //taille polynome 1
