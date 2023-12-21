@@ -1,7 +1,5 @@
 /* Samy HORCHANI (n° étudiant : 28706765)*/
 #include "complex.h"
-#include <stdio.h>
-#include <math.h>
 
 Complex Complex_add(Complex a, Complex b) {
     Complex result;

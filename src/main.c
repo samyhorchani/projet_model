@@ -1,9 +1,6 @@
 /* Samy HORCHANI (n° étudiant : 28706765)*/
-#include "complex.h"
 #include "multiplyPolynomials.h"
-#include "FFT_invFFT.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 
 int main(int argc, char const *argv[]){
     printf("Test des fonctions d'arithmetique de nombre Complexe :\n");

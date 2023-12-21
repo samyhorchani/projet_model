@@ -1,10 +1,6 @@
 /* Samy HORCHANI (n° étudiant : 28706765) */
 
-#include "complex.h"
 #include "FFT_invFFT.h"
-#include "math.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 // Implement the FFT and inverse FFT for vectors of size 2𝑘 : these functions must enlarge vectors of sizes that are not powers of 2.
 

@@ -14,7 +14,7 @@ DEPS = $(wildcard $(INCLUDE_DIR)/*.h)
 all: $(MAIN_EXEC)
 
 $(MAIN_EXEC): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -lm
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@

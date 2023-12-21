@@ -1,11 +1,7 @@
 /* Samy HORCHANI (n° étudiant : 28706765) */
 
 #include "multiplyPolynomials.h"
-#include "complex.h"
-#include "FFT_invFFT.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+
 
 /* Implémentation de l'algorithme de multiplication naïve de deux polynomes avec des coefficients entiers */
 

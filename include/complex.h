@@ -3,6 +3,9 @@
 #ifndef COMPLEX_H
 #define COMPLEX_H
 
+#include <stdio.h>
+#include <math.h>
+
 /* Structure */
 
 typedef struct Complex
