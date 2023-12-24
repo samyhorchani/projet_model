@@ -36,26 +36,17 @@ int* naiveMultiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2, int 
         }
     }
 
-    printf("Result polynomial naive method: ");
-    for (int i = 0; i < (*size_res) ; i++){
-        printf("%d", result[i]);
-        printf("x^%d ",i);
-        if(i < (*size_res)-1){
-            printf("+ ");
-        }
-    }
-    printf("\n");
-
     return result;
 }
 
 int *fftMultiplyPolynomials(int P[], int size_P, int Q[], int size_Q, int *size_res){
     *size_res = size_P+size_Q-1;
     //printf("size_res MULTIPLY avant FFT = %d\n", *size_res);
-    
-    Complex *FFT_P = FFT( tab_int_to_complex(P, size_P), size_P, size_res);
+    Complex *P_complex = tab_int_to_complex(P, size_P);
+    Complex *Q_complex =tab_int_to_complex(Q, size_Q);
+    Complex *FFT_P = FFT( P_complex , size_P, size_res);
     //printf("size_res MULTIPLY apres FFT = %d\n", *size_res);
-    Complex *FFT_Q = FFT( tab_int_to_complex(Q, size_Q), size_Q, size_res);
+    Complex *FFT_Q = FFT( Q_complex, size_Q, size_res);
 
     Complex *FFT_res = malloc((*size_res) * sizeof(Complex));
     if(FFT_res == NULL){
@@ -81,10 +72,13 @@ int *fftMultiplyPolynomials(int P[], int size_P, int Q[], int size_Q, int *size_
         res[i] = round(invFFT_res[i].real);
     }
 
+    free(P_complex);
+    free(Q_complex);
     free(FFT_P);
     free(FFT_Q);
     free(FFT_res);
     free(invFFT_res);
+    
     //display_polynomial(res, *size_res);
     return res;
 }

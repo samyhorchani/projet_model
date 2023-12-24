@@ -9,9 +9,14 @@ int power_of_2(int number){
     {
         return number;
     }
+    int count = 0;
 
-    int n = (int)ceil(log2(number));
-    return (int)pow(2, n);
+    while(number != 0){
+        number>>=1;
+        count++;
+    }
+
+    return (1<<count);
 }
 
 void FFT_rec(Complex *v, int n, Complex *res, Complex omega, int step){

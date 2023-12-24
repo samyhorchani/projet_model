@@ -18,27 +18,43 @@ int main(void)
 {
     srand(0); // pour avoir des tests reproductibles ?
 
-    FILE *fichier = fopen("data_FFT.txt", "w"); // Ouvre le fichier en mode écriture
-    if (fichier == NULL)
+    FILE *data_NAIVE = fopen("data_NAIVE.txt", "w");
+    FILE *data_FFT = fopen("data_FFT.txt", "w");
+    if (data_FFT == NULL || data_NAIVE == NULL)
     {
-        printf("Erreur à l'ouverture du fichier\n");
+        printf("Erreur à l'ouverture des fichiers .txt\n");
         return 1;
     }
     clock_t debut, fin;
     double temps_ecoule;
-    for (int i = 1; i <= 100000; i++)
+    for (int i = 1; i <= 10000; i++)
     {
         int *p = randomPolynomial(i);
         int *q = randomPolynomial(i);
         int res;
+
         debut = clock();
-        fftMultiplyPolynomials(p, i, q, i, &res);
+        int *tmp_naiv = naiveMultiplyPolynomials(p, i, q, i, &res);
         fin = clock();
+
         temps_ecoule = ((double)(fin - debut)) / CLOCKS_PER_SEC;
-        fprintf(fichier, "%d %d %f\n", i, i, temps_ecoule);
+        fprintf(data_NAIVE, "%d %d %f\n", i, i, temps_ecoule);
+
+        debut = clock();
+        int *tmp_FFT = fftMultiplyPolynomials(p, i, q, i, &res);
+        fin = clock();
+
+        temps_ecoule = ((double)(fin - debut)) / CLOCKS_PER_SEC;
+        fprintf(data_FFT, "%d %d %f\n", i, i, temps_ecoule);
+    
         printf("%d\n", i);
+        free(p);
+        free(q);
+        free(tmp_naiv);
+        free(tmp_FFT);
     }
 
-    fclose(fichier);
+    fclose(data_FFT);
+    fclose(data_NAIVE);
     return 0;
 }
