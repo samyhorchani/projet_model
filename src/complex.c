@@ -82,6 +82,10 @@ void display_Complex(Complex a){
 }
 
 void display_tab_complex(Complex *tab, int size_tab){
-    
+    printf("[ ");
+    for(int i = 0; i < size_tab; i++){
+        display_Complex(tab[i]);
+    }
+    printf("] \n");
 
 }

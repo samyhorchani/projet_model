@@ -28,5 +28,6 @@ Complex Complex_logarithm(Complex a);
 Complex int_to_complex(int a);
 Complex *tab_int_to_complex(int* tab, int size_tab);
 void display_Complex(Complex a); //affiche un nombre Complexe dans le terminal sous la forme (a + bi)
+void display_tab_complex(Complex *tab, int size_tab);
 
 #endif

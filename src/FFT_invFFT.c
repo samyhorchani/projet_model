@@ -4,17 +4,8 @@
 
 // Implement the FFT and inverse FFT for vectors of size 2𝑘 : these functions must enlarge vectors of sizes that are not powers of 2.
 
-int verify(int number){
-    if (number <= 0)
-    {
-        return 0;
-    }
-
-    return (number & (number - 1)) == 0;
-}
-
 int power_of_2(int number){
-    if (verify(number))
+    if ((number & (number - 1)) == 0)
     {
         return number;
     }
@@ -49,9 +40,9 @@ void FFT_rec(Complex *v, int n, Complex *res, Complex omega, int step){
 /*****************************************************************************/
 
 Complex *FFT(Complex *v, int size_v, int *size_res){
-    int k;
-    for(k=0; *size_res> (1<<k) ;k++);
-    *size_res = 1<<k;
+    //printf("HEEERE size_res=%d\n", *size_res);
+    *size_res = power_of_2(*size_res);
+    //printf("HEEERE size_res=%d\n", *size_res);
 
     Complex *new_v = malloc((*size_res) * sizeof(Complex));
 
@@ -90,9 +81,12 @@ Complex *invFFT(Complex *v, int size_v, int *size_res) {
         v[i] = Complex_conjugate(v[i]);
     }
     Complex *res = FFT(v, size_v, size_res);
-    for(int i=0;i<*size_res;++i) res[i] = Complex_divide(Complex_conjugate(res[i]),int_to_complex(size_v));
+    for(int i=0;i<*size_res;i++){
+        res[i] = Complex_divide(Complex_conjugate(res[i]),int_to_complex(size_v));
+        v[i] = Complex_conjugate(v[i]); //annuler changement v
+    } 
 
-    for(int i=0;i<*size_res;++i) v[i] = Complex_conjugate(v[i]);
+    //for(int i=0;i<*size_res;++i)  ;
 
     // printf("RESULTAT invFFT :\n");
     // printf("[ ");

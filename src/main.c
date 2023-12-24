@@ -27,11 +27,11 @@ int main(int argc, char const *argv[]){
     printf("a/b = ");
     display_Complex(Complex_divide(a,b));
 
-    int p1[4] = {1,2, 3, 4}; // polynome 1
+    int p1[] = {1,2, 3, 4}; // polynome 1
     int size_p1 = sizeof(p1)/sizeof(p1[0]); //taille polynome 1
     printf("Taille premier polynome = %d\n",size_p1);
 
-    int p2[3] = {0,2, 9}; // polynome 2
+    int p2[] = {0,2, 9, 82, 3}; // polynome 2
     int size_p2 = sizeof(p2)/sizeof(p2[0]); //taille polynome 2
     printf("Taille seconde polynome = %d\n",size_p2);
 
@@ -42,6 +42,8 @@ int main(int argc, char const *argv[]){
     printf("l NAIF = %d\n", size_res);
     printf("Teste de l'algorithme de multiplication de polynome FFT\n");
     fftMultiplyPolynomials(p1, size_p1, p2, size_p2, &size_res);
+    display_polynomial(p1, size_p1);
+    display_polynomial(p2, size_p2);
     printf("l FFT = %d\n", size_res);
 
     // printf("Teste de la fonction verify\n");
@@ -54,15 +56,18 @@ int main(int argc, char const *argv[]){
     //     }
     // }
 
-    printf("Teste de la fonction FFT LOOOOL\n");
-    int len_v = 4;
-    int v[4] = {2,10,-2,-9};
+    printf("Teste de la fonction FFT :\n");
+    int len_v = 2;
+    int v[2] = {1, 2};
     //size_res = 0;
     Complex *v_complex = tab_int_to_complex(v, len_v);
-    FFT(v_complex, len_v, &size_res);
     //size_res = 0;
-    printf("Teste de la fonction invFFT LOOOOL\n");
-    invFFT(v_complex, len_v, &size_res);
+    int size_res2 = 2;
+    Complex *v_FFT = FFT(v_complex, len_v, &size_res2);
+    printf("l after FFT = %d\n", size_res2);
+    display_tab_complex(v_FFT, size_res2);
+    printf("Teste de la fonction invFFT :\n");
+    display_tab_complex(invFFT(v_complex, len_v, &size_res2), size_res2);
     printf("\n");
     
     return 0;
