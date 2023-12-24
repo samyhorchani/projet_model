@@ -3,4 +3,3 @@ main
 *.o
 sauv.c
 Makefile2
-benchmarks.c

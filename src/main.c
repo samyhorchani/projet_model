@@ -57,12 +57,12 @@ int main(int argc, char const *argv[]){
     // }
 
     printf("Teste de la fonction FFT :\n");
-    int len_v = 2;
-    int v[2] = {1, 2};
+    int len_v = 4;
+    int v[4] = {1, 2, 3, 0};
     //size_res = 0;
     Complex *v_complex = tab_int_to_complex(v, len_v);
     //size_res = 0;
-    int size_res2 = 2;
+    int size_res2 = 3;
     Complex *v_FFT = FFT(v_complex, len_v, &size_res2);
     printf("l after FFT = %d\n", size_res2);
     display_tab_complex(v_FFT, size_res2);

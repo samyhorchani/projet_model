@@ -51,10 +51,10 @@ int* naiveMultiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2, int 
 
 int *fftMultiplyPolynomials(int P[], int size_P, int Q[], int size_Q, int *size_res){
     *size_res = size_P+size_Q-1;
-    printf("size_res MULTIPLY avant FFT = %d\n", *size_res);
+    //printf("size_res MULTIPLY avant FFT = %d\n", *size_res);
     
     Complex *FFT_P = FFT( tab_int_to_complex(P, size_P), size_P, size_res);
-    printf("size_res MULTIPLY apres FFT = %d\n", *size_res);
+    //printf("size_res MULTIPLY apres FFT = %d\n", *size_res);
     Complex *FFT_Q = FFT( tab_int_to_complex(Q, size_Q), size_Q, size_res);
 
     Complex *FFT_res = malloc((*size_res) * sizeof(Complex));
@@ -65,11 +65,11 @@ int *fftMultiplyPolynomials(int P[], int size_P, int Q[], int size_Q, int *size_
     for(int i = 0; i < (*size_res); i++){
         FFT_res[i] = Complex_multiply(FFT_P[i], FFT_Q[i]);
     }
-    printf("ICI\n");
-    display_tab_complex(FFT_res, *size_res);
+    //printf("ICI\n");
+    //display_tab_complex(FFT_res, *size_res);
     Complex *invFFT_res = invFFT(FFT_res, *size_res, size_res);
-    printf("ICI\n");
-    display_tab_complex(FFT_res, *size_res);
+    //printf("ICI\n");
+    //display_tab_complex(FFT_res, *size_res);
 
     int* res = malloc((*size_res) * sizeof(int));
     if(res == NULL){
@@ -85,7 +85,7 @@ int *fftMultiplyPolynomials(int P[], int size_P, int Q[], int size_Q, int *size_
     free(FFT_Q);
     free(FFT_res);
     free(invFFT_res);
-    display_polynomial(res, *size_res);
+    //display_polynomial(res, *size_res);
     return res;
 }
 
