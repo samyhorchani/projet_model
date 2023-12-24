@@ -9,6 +9,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-void naiveMultiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2);
-void fftMultiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2);
+void naiveMultiplyPolynomials(int p1[], int size_p1, int p2[], int size_p2, int *size_res);
+void fftMultiplyPolynomials(int P[], int size_P, int Q[], int size_Q, int *size_res);
 #endif

@@ -4,6 +4,7 @@
 #define COMPLEX_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 /* Structure */
@@ -24,6 +25,8 @@ Complex Complex_conjugate(Complex a);           // rend le conjugué d'un nombre
 Complex Complex_exponential(Complex a);
 Complex Complex_power(Complex a, int n);
 Complex Complex_logarithm(Complex a);
+Complex int_to_complex(int a);
+Complex *tab_int_to_complex(int* tab, int size_tab);
 void display_Complex(Complex a); //affiche un nombre Complexe dans le terminal sous la forme (a + bi)
 
 #endif

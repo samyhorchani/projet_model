@@ -66,8 +66,22 @@ Complex Complex_logarithm(Complex a) { // à verifier
 
     return result;
 }
-
-
+Complex int_to_complex(int a){
+    return (Complex){a,0};
+}
+Complex *tab_int_to_complex(int* tab, int size_tab){
+    Complex *resultat = malloc(size_tab * sizeof(Complex));
+    for(int i = 0; i<size_tab ; i++){
+        resultat[i] = int_to_complex(tab[i]);
+        //display_Complex(resultat[i]);
+    }
+    return resultat;
+}
 void display_Complex(Complex a){
     printf("%.2f + %.2fi\n", a.real, a.imag);
+}
+
+void display_tab_complex(Complex *tab, int size_tab){
+    
+
 }

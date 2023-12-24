@@ -23,20 +23,19 @@ int power_of_2(int number){
     return (int)pow(2, n);
 }
 
-void FFT_rec(Complex *v, int n, Complex *res, int step){
+void FFT_rec(Complex *v, int n, Complex *res, Complex omega, int step){
     if(n == 1){
         res[0] = v[0];
         return;
     }
-    
-    Complex pi2_I = {0., (2. * M_PI/n)}; // 2pi*i/n
-    // display_Complex(pi2_I);
-    Complex omega = Complex_exponential(pi2_I);
+
+    Complex omega_2 = Complex_multiply(omega, omega);
     // display_Complex(omega);
 
-    FFT_rec(v,  n/2 , res, 2*step);
-    FFT_rec(v + step,n/2, res + n/2, 2*step);
+    FFT_rec(v,  n/2 , res, omega_2,2*step);
+    FFT_rec(v + step,n/2, res + n/2, omega_2,2*step);
 
+    //Ajouter omega i si marche pas
     for (int i = 0; i < n/2; i++) {
         Complex p = res[i];
         Complex q = Complex_multiply(res[i + n/2], Complex_power(omega, i)); //initialement, omega vaut 1
@@ -45,77 +44,63 @@ void FFT_rec(Complex *v, int n, Complex *res, int step){
     }
 }
 
-Complex *FFT(int *v, int size_v){
-    int n = power_of_2(size_v); // retourn size_v si puissance de 2 ou la puissance de 2 la plus proche
-    Complex *new_v = malloc(n * sizeof(Complex));
-    for(int i = 0; i < size_v; i++){ //Creation des Complexes avec le tab d'entier en utilisant ma stucture decrite dans Complex.h
-        new_v[i] = (Complex){v[i], 0};
-    }
+/************************** Fast Fourier Transform ***************************/
+/*             This code enlarge vectors that are not powers of 2            */
+/*****************************************************************************/
 
-    for(int i = size_v; i < n; i++){
+Complex *FFT(Complex *v, int size_v, int *size_res){
+    int k;
+    for(k=0; *size_res> (1<<k) ;k++);
+    *size_res = 1<<k;
+
+    Complex *new_v = malloc((*size_res) * sizeof(Complex));
+
+    for(int i = 0; i < size_v; i++){ //Creation des Complexes avec le tab d'entier en utilisant ma stucture decrite dans Complex.h
+        new_v[i] = v[i];
+    }
+               
+    for(int i = size_v; i < *size_res; i++){
         new_v[i] = (Complex){0,0}; 
     } //Ne rentre pas si size_v deja puissance de 2 sinon init à 0
 
-    Complex *res = malloc(n * sizeof(Complex));
+    
+    Complex *res = malloc((*size_res) * sizeof(Complex));
 
-    FFT_rec(new_v, n,res , 1);
-    printf("RESULTAT FFT :\n");
-    printf("[ ");
-    for(int i = 0; i < n; i++){
-        display_Complex(res[i]);
-        printf(" ");
-    }
-    printf("]\n");
-    return res;
-}
-
-Complex  *invFFT(int *v, int size_v){
-    int n = power_of_2(size_v); // retourn size_v si puissance de 2 ou la puissance de 2 la plus proche
-    Complex *new_v = malloc(n * sizeof(Complex));
-    for(int i = 0; i < size_v; i++){ //Creation des Complexes avec le tab d'entier en utilisant ma stucture decrite dans Complex.h
-        new_v[i] = (Complex){v[i], 0};
-    }
-
-    for(int i = size_v; i < n; i++){
-        new_v[i] = (Complex){0,0}; 
-    } //Ne rentre pas si size_v deja puissance de 2 sinon init à 0
-
-    Complex *res = malloc(n * sizeof(Complex));
-
-    invFFT_rec(new_v, n,res , 1);
-    printf("RESULTAT inverse FFT :\n");
-    printf("[ ");
-    for(int i = 0; i < n; i++){
-        display_Complex(res[i]);
-        printf(" ");
-    }
-    printf("]\n");
-
-    return res;
-}
-
-void invFFT_rec(Complex *v, int n, Complex *res, int step){
-    if(n == 1){
-        res[0] = v[0];
-        return;
-    }
-
-    Complex pi2_I = {0., (2. * M_PI/n)}; // 2pi*i/n
+    Complex pi2_I = {0., (2. * M_PI/ (*size_res) )}; // 2pi*i/n
     // display_Complex(pi2_I);
-    Complex omega = Complex_conjugate(Complex_exponential(pi2_I));
-    // display_Complex(omega_n);
+    Complex omega = Complex_exponential(pi2_I);
 
-    FFT_rec(v,  n/2 , res, 2*step);
-    FFT_rec(v + step,n/2, res + n/2, 2*step);
+    FFT_rec(new_v, *size_res,res,omega, 1);
 
-    Complex n_Complex = {n,0};
-
-    for (int i = 0; i < n/2; i++) {
-        Complex p = res[i];
-        Complex q = Complex_multiply(res[i + n/2], Complex_conjugate(Complex_power(omega, i))); //initialement, omega vaut 1
-        res[i] = Complex_divide(Complex_add(p, q), n_Complex);
-
-        res[i + n/2] = Complex_divide(Complex_subtract(p,q), n_Complex);
-    }
+    // printf("RESULTAT FFT :\n");
+    // printf("[ ");
+    // for(int i = 0; i < (*size_res); i++){
+    //     display_Complex(res[i]);
+    //     printf(" ");
+    // }
+    // printf("]\n");
+    free(new_v);
+    return res;
 }
+/************************** Fast Fourier Transform Inverse ***************************/
+/*                 This code enlarge vectors that are not powers of 2                */
+/*************************************************************************************/
+Complex *invFFT(Complex *v, int size_v, int *size_res) {
+    for(int i = 0; i < *(size_res); i++){
+        v[i] = Complex_conjugate(v[i]);
+    }
+    Complex *res = FFT(v, size_v, size_res);
+    for(int i=0;i<*size_res;++i) res[i] = Complex_divide(Complex_conjugate(res[i]),int_to_complex(size_v));
 
+    for(int i=0;i<*size_res;++i) v[i] = Complex_conjugate(v[i]);
+
+    // printf("RESULTAT invFFT :\n");
+    // printf("[ ");
+    // for (int i = 0; i < *size_res; i++) {
+    //     display_Complex(res[i]);
+    //     printf(" ");
+    // }
+    // printf("]\n");
+
+    return res;
+}
