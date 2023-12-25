@@ -32,17 +32,16 @@ void FFT_rec(Complex *v, int n, Complex *res, Complex omega, int step){
     FFT_rec(v + step,n/2, res + n/2, omega_2,2*step);
 
     //Ajouter omega i si marche pas
+    Complex omega_i = {1,0};
     for (int i = 0; i < n/2; i++) {
         Complex p = res[i];
-        Complex q = Complex_multiply(res[i + n/2], Complex_power(omega, i)); //initialement, omega vaut 1
+        Complex q = Complex_multiply(res[i + n/2], omega_i); //initialement, omega vaut 1
         res[i] = Complex_add(p, q);
         res[i + n/2] = Complex_subtract(p,q);
+        omega_i = Complex_multiply(omega, omega_i);
     }
 }
 
-/************************** Fast Fourier Transform ***************************/
-/*             This code enlarge vectors that are not powers of 2            */
-/*****************************************************************************/
 
 Complex *FFT(Complex *v, int size_v, int *size_res){
     //printf("HEEERE size_res=%d\n", *size_res);
@@ -78,9 +77,7 @@ Complex *FFT(Complex *v, int size_v, int *size_res){
     free(new_v);
     return res;
 }
-/************************** Fast Fourier Transform Inverse ***************************/
-/*                 This code enlarge vectors that are not powers of 2                */
-/*************************************************************************************/
+
 Complex *invFFT(Complex *v, int size_v, int *size_res) {
     for(int i = 0; i < *(size_res); i++){
         v[i] = Complex_conjugate(v[i]);
