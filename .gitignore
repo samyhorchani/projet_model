@@ -1,5 +1,6 @@
 *.txt
 main
+benchmarks
 *.o
 sauv.c
 Makefile2
