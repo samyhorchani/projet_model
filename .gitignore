@@ -5,3 +5,4 @@ benchmarks
 sauv.c
 Makefile2
 *.png
+*.gnuplot

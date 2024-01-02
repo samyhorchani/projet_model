@@ -91,16 +91,18 @@ Complex Complex_power(Complex a, int n) { //utilisation la formule de moivre pou
     return result;
 }
 
-Complex Complex_logarithm(Complex a) { // à verifier
+Complex Complex_logarithm(Complex a) {
     Complex result;
-    result.real = log(sqrt(a.real * a.real + a.imag * a.imag));
+    result.real = 0.5 * log(a.real * a.real + a.imag * a.imag); // Utilisation de la propriété log(sqrt(x)) = 1/2 log(x) pour eviter appelle sqrt
     result.imag = atan2(a.imag, a.real);
 
     return result;
 }
+
 Complex int_to_complex(int a){
     return (Complex){a,0};
 }
+
 Complex *tab_int_to_complex(int* tab, int size_tab){
     Complex *resultat = malloc(size_tab * sizeof(Complex));
     for(int i = 0; i<size_tab ; i++){

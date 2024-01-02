@@ -22,12 +22,22 @@ Complex getComplexInput() {
 
 int getIntInput(){
     int input;
-    while (scanf("%d", &input) != 1) {
-        printf("Entrée invalide. Veuillez entrer un entier : ");
-        // Nettoyer le buffer d'entrée
-        while (getchar() != '\n');
+    char buffer[100];
+
+    while (1) {
+        if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+            // Essayer de convertir le texte en nombre
+            if (sscanf(buffer, "%d", &input) == 1) {
+                return input;
+            } else {
+                printf("Entrée invalide. Veuillez entrer un entier : ");
+            }
+        } else {
+            printf("Erreur de lecture. Veuillez réessayer.\n");
+            // Nettoyae du buffer d'entrée
+            while (getchar() != '\n');
+        }
     }
-    return input;
 }
 
 void makeMultiplication(int *(*multiplicationFunc)(int *, int, int *, int, int *)) {

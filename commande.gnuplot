@@ -34,15 +34,19 @@ set format y '%g' # Format par défaut ou adapté à vos données
 plot 'benchmark/data_FFT.txt' using 1:2 with lines title 'fftMultiplyPolynomials', \
      'benchmark/data_NAIVE.txt' using 1:2 with lines title 'naiveMultiplyPolynomials'
 
+
 # THEORIQUE
-
-
-#
 set key top left
 #set title "Évolution du temps en fonction de la taille de l'entrée"
-set output 'benchmark/FFT_vs_NAIVE_THEO.png'
-set yrange [0:140000]
+set output 'benchmark/NAIVE_THEO.png'
+unset yrange
 unset xrange
-set logscale x
-plot 'benchmark/data_FFT_THEO.txt' using 1:2 with lines title 'fftMultiplyPolynomials', \
-     'benchmark/data_NAIVE_THEO.txt' using 1:2 with lines title 'naiveMultiplyPolynomials'
+
+plot 'benchmark/data_NAIVE_THEO.txt' using 1:2 with lines title 'naiveMultiplyPolynomials'
+
+# THEORIQUE
+set key top left
+#set title "Évolution du temps en fonction de la taille de l'entrée"
+set output 'benchmark/FFT_THEO.png'
+
+plot 'benchmark/data_FFT_THEO.txt' using 1:2 with lines title 'fftMultiplyPolynomials'

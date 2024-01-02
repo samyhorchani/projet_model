@@ -3,7 +3,7 @@
 /* Fichier qui permet de realiser les courbes et tests */
 #include "multiplyPolynomials.h"
 #include <time.h>
-#define MAX_TAILLE_POLY 15000 // Taille MAX de l'entrée (polynomes)
+#define MAX_TAILLE_POLY 10000 // Taille MAX de l'entrée (polynomes)
 #define NUM_TESTS 5 // Nombre de mesure par tests afin de realiser une moyenne
 
 int *randomPolynomial(int taille){ 
@@ -34,65 +34,72 @@ double measureTime(int *(*multiplicationFunc)(int *, int, int *, int, int *), in
 
 int main(void){  
     //rechauffer le cache
-    // int *warmup_p = randomPolynomial(MAX_TAILLE_POLY);
-    // int *warmup_q = randomPolynomial(MAX_TAILLE_POLY);
-    // int warmup_res;
-    // int *warmup_tmp = naiveMultiplyPolynomials(warmup_p, MAX_TAILLE_POLY, warmup_q, MAX_TAILLE_POLY, &warmup_res);
-    // free(warmup_tmp);
-    // free(warmup_p);
-    // free(warmup_q);
+    int *warmup_p = randomPolynomial(MAX_TAILLE_POLY);
+    int *warmup_q = randomPolynomial(MAX_TAILLE_POLY);
+    int warmup_res;
+    int *warmup_tmp = naiveMultiplyPolynomials(warmup_p, MAX_TAILLE_POLY, warmup_q, MAX_TAILLE_POLY, &warmup_res);
+    free(warmup_tmp);
+    free(warmup_p);
+    free(warmup_q);
 
 
-    // FILE *data_NAIVE = fopen("benchmark/data_NAIVE.txt", "w");
-    // FILE *data_FFT = fopen("benchmark/data_FFT.txt", "w");
-    // if (data_FFT == NULL || data_NAIVE == NULL)
-    // {
-    //     printf("Erreur à l'ouverture des fichiers .txt\n");
-    //     return 1;
-    // }
-    
-    // for (int i = 1; i <= MAX_TAILLE_POLY; i++)
-    // {
-    //     int *p = randomPolynomial(i);
-    //     int *q = randomPolynomial(i);
-
-    //     double temps_naive = measureTime(naiveMultiplyPolynomials, p, q, i);
-    //     fprintf(data_NAIVE, "%d %f\n", i, temps_naive);
-
-    //     double temps_FFT = measureTime(fftMultiplyPolynomials, p, q, i);
-    //     fprintf(data_FFT, "%d %f\n", i, temps_FFT);
-
-    //     printf("%d\n", i);
-    //     free(p);
-    //     free(q);
-    // }
-
-    // fclose(data_FFT);
-    // fclose(data_NAIVE);
-
-    /* ************************************************************************************ */
-    FILE *data_NAIVE_THEO = fopen("benchmark/data_NAIVE_THEO.txt", "w");
-    FILE *data_FFT_THEO = fopen("benchmark/data_FFT_THEO.txt", "w");
-    if (data_FFT_THEO == NULL || data_NAIVE_THEO == NULL)
+    FILE *data_NAIVE = fopen("benchmark/data_NAIVE.txt", "w");
+    FILE *data_FFT = fopen("benchmark/data_FFT.txt", "w");
+    if (data_FFT == NULL || data_NAIVE == NULL)
     {
         printf("Erreur à l'ouverture des fichiers .txt\n");
         return 1;
     }
+    
+    for (int i = 1; i <= MAX_TAILLE_POLY; i++)
+    {
+        int *p = randomPolynomial(i);
+        int *q = randomPolynomial(i);
+
+        double temps_naive = measureTime(naiveMultiplyPolynomials, p, q, i);
+        fprintf(data_NAIVE, "%d %f\n", i, temps_naive);
+
+        double temps_FFT = measureTime(fftMultiplyPolynomials, p, q, i);
+        fprintf(data_FFT, "%d %f\n", i, temps_FFT);
+
+        printf("%d\n", i);
+        free(p);
+        free(q);
+    }
+
+    fclose(data_FFT);
+    fclose(data_NAIVE);
+
+
+    /* ***************************** GENERER DONNER REF GRAPH THEORIQUE  POUR RAPPORT ***************************** */
+    // FILE *data_NAIVE_THEO = fopen("benchmark/data_NAIVE_THEO.txt", "w");
+    // FILE *data_FFT_THEO = fopen("benchmark/data_FFT_THEO.txt", "w");
+    // FILE *data_NAIVE_THEO_3D = fopen("benchmark/data_NAIVE_THEO_3D.txt", "w");
+    // FILE *data_FFT_THEO_3D = fopen("benchmark/data_FFT_THEO_3D.txt", "w");
+    // if (data_FFT_THEO == NULL || data_NAIVE_THEO == NULL || data_FFT_THEO_3D == NULL || data_NAIVE_THEO_3D == NULL )
+    // {
+    //     printf("Erreur à l'ouverture des fichiers .txt\n");
+    //     return 1;
+    // }
 
     // for(int i = 1; i <= MAX_TAILLE_POLY; i++){
     //     for(int j = 1; j <= MAX_TAILLE_POLY; j++){
-    //         fprintf(data_NAIVE_THEO, "%d %d %d\n", i, j , j*i);
+    //         fprintf(data_NAIVE_THEO_3D, "%d %d %d\n", i, j , j*i);
+    //         fprintf(data_FFT_THEO_3D, "%d %d %f\n", i ,j, power_of_2(i+j) * log2(power_of_2(i+j)) );
     //         //int temps_fft = pow(2, () )
     //     }
     //     printf("%d\n", i);
-    //     fprintf(data_NAIVE_THEO, "\n");
+    //     fprintf(data_NAIVE_THEO_3D, "\n");
+    //     fprintf(data_FFT_THEO_3D, "\n");
     // }
-    for(int i = 1; i <= MAX_TAILLE_POLY; i++){
-        fprintf(data_FFT_THEO, "%d %f\n", i , i*log(i) );
-        fprintf(data_NAIVE_THEO, "%d %d\n", i , i*i );
-    }
+    // for(int i = 1; i <= MAX_TAILLE_POLY; i++){
+    //     fprintf(data_FFT_THEO, "%d %f\n", i , power_of_2(i)*log2( power_of_2(i) ) );
+    //     fprintf(data_NAIVE_THEO, "%d %d\n", i , i*i );
+    // }
 
-    fclose(data_FFT_THEO);
-    fclose(data_NAIVE_THEO);
+    // fclose(data_FFT_THEO);
+    // fclose(data_NAIVE_THEO);
+    // fclose(data_FFT_THEO_3D);
+    // fclose(data_NAIVE_THEO_3D);
     return 0;
 }
