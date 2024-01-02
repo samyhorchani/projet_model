@@ -1,24 +1,6 @@
 /* Samy HORCHANI (n° étudiant : 28706765)*/
 #include "multiplyPolynomials.h"
 
-Complex getComplexInput() {
-    Complex input;
-    printf("Entrez la partie réelle du nombre complexe : ");
-    while (scanf("%lf", &input.real) != 1) {
-        printf("Entrée invalide. Veuillez entrer un nombre réel : ");
-        // Nettoyer le buffer d'entrée
-        while (getchar() != '\n');
-    }
-
-    printf("Entrez la partie imaginaire du nombre complexe : ");
-    while (scanf("%lf", &input.imag) != 1) {
-        printf("Entrée invalide. Veuillez entrer un nombre réel : ");
-        // Nettoyer le buffer d'entrée
-        while (getchar() != '\n');
-    }
-
-    return input;
-}
 
 int getIntInput(){
     int input;
@@ -34,10 +16,41 @@ int getIntInput(){
             }
         } else {
             printf("Erreur de lecture. Veuillez réessayer.\n");
-            // Nettoyae du buffer d'entrée
+            // Nettoyage du buffer d'entrée
             while (getchar() != '\n');
         }
     }
+}
+
+double getDoubleInput(){
+    double input;
+    char buffer[100];
+
+    while (1) {
+        if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+            // Essayer de convertir le texte en nombre
+            if (sscanf(buffer, "%lf", &input) == 1) {
+                return input;
+            } else {
+                printf("Entrée invalide. Veuillez entrer un double : ");
+            }
+        } else {
+            printf("Erreur de lecture. Veuillez réessayer.\n");
+            // Nettoyage du buffer d'entrée
+            while (getchar() != '\n');
+        }
+    }
+}
+
+Complex getComplexInput() {
+    Complex input;
+    printf("Entrez la partie réelle du nombre complexe : ");
+    input.real = getDoubleInput();
+
+    printf("Entrez la partie imaginaire du nombre complexe : ");
+    input.imag = getDoubleInput();
+
+    return input;
 }
 
 void makeMultiplication(int *(*multiplicationFunc)(int *, int, int *, int, int *)) {
@@ -49,7 +62,8 @@ void makeMultiplication(int *(*multiplicationFunc)(int *, int, int *, int, int *
         printf("Veuillez entrer le coefficient devant x^%d :\n", i);
         P[i] = getIntInput();
     }
-
+    
+    printf("\n/***********************************************************/\n\n");
     printf("Le polynome P = ");
     display_polynomial(P, size_P);
 
@@ -61,6 +75,7 @@ void makeMultiplication(int *(*multiplicationFunc)(int *, int, int *, int, int *
         printf("Veuillez entrer le coefficient devant x^%d :\n", i);
         Q[i] = getIntInput();
     }
+    printf("\n/***********************************************************/\n\n");
     printf("Le polynome Q = ");
     display_polynomial(Q, size_Q);
 
@@ -88,11 +103,14 @@ void makeFFTorInvFFT(Complex *(*fftFunc)(Complex *, int, int *)) {
         V[i] = getComplexInput();
     }
 
-    printf("Le resultat est : ");
+    printf("\n/***********************************************************/\n\n");
+    printf("Le resultat pour le vecteur : \n");
+    display_tab_complex(V,size_V);
+    printf("est :\n");
     int size_res = size_V;
     Complex *result = fftFunc(V, size_V, &size_res);
 
-    printf("size res =%d\n", size_res);
+    //printf("size res =%d\n", size_res);
     display_tab_complex(result, size_res);
 
     free(V);
