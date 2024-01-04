@@ -3,7 +3,7 @@
 /* Fichier qui permet de realiser les courbes et tests */
 #include "multiplyPolynomials.h"
 #include <time.h>
-#define MAX_TAILLE_POLY 10000 // Taille MAX de l'entrée (polynomes)
+#define MAX_TAILLE_POLY 15000 // Taille MAX de l'entrée (polynomes)
 #define NUM_TESTS 5 // Nombre de mesure par tests afin de realiser une moyenne
 
 int *randomPolynomial(int taille){ 

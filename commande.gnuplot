@@ -1,8 +1,9 @@
+# Samy HORCHANI (n° étudiant 28706765)
 # Premier graphique avec échelle logarithmique
 set terminal png
 #set title "Évolution du temps en fonction de la taille de l'entrée en échelle logarithmique"
 set output 'benchmark/FFT_vs_NAIVE_log.png'
-set xlabel 'degrée du polynome'
+set xlabel 'n'
 set ylabel 'temps (en seconde)'
 set xrange [1:15000]
 set logscale x
@@ -35,18 +36,18 @@ plot 'benchmark/data_FFT.txt' using 1:2 with lines title 'fftMultiplyPolynomials
      'benchmark/data_NAIVE.txt' using 1:2 with lines title 'naiveMultiplyPolynomials'
 
 
-# THEORIQUE
+# THEORIQUE NAIVE
 set key top left
-#set title "Évolution du temps en fonction de la taille de l'entrée"
 set output 'benchmark/NAIVE_THEO.png'
-unset yrange
-unset xrange
+set xrange[1:10000]
+set yrange[1:1e08]
+unset ylabel
+plot x**2 with lines title 'naiveMultiplyPolynomials theorique'
 
-plot 'benchmark/data_NAIVE_THEO.txt' using 1:2 with lines title 'naiveMultiplyPolynomials'
-
-# THEORIQUE
+# THEORIQUE NAIVE
 set key top left
-#set title "Évolution du temps en fonction de la taille de l'entrée"
 set output 'benchmark/FFT_THEO.png'
-
-plot 'benchmark/data_FFT_THEO.txt' using 1:2 with lines title 'fftMultiplyPolynomials'
+set xrange[1:10000]
+unset yrange
+unset ylabel
+plot 2**ceil(log(x)/log(2))*ceil(log(x)/log(2)) with lines title 'fftMultiplyPolynomials theorique'
