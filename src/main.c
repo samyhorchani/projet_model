@@ -64,8 +64,6 @@ void makeMultiplication(int *(*multiplicationFunc)(int *, int, int *, int, int *
     }
     
     printf("\n/***********************************************************/\n\n");
-    printf("Le polynome P = ");
-    display_polynomial(P, size_P);
 
     printf("Veuillez entrez le degré du second polynome :");
     int size_Q = getIntInput() + 1;
@@ -76,6 +74,8 @@ void makeMultiplication(int *(*multiplicationFunc)(int *, int, int *, int, int *
         Q[i] = getIntInput();
     }
     printf("\n/***********************************************************/\n\n");
+    printf("Le polynome P = ");
+    display_polynomial(P, size_P);
     printf("Le polynome Q = ");
     display_polynomial(Q, size_Q);
 
