@@ -33,14 +33,14 @@ double measureTime(int *(*multiplicationFunc)(int *, int, int *, int, int *), in
 }
 
 int main(void){  
-    //rechauffer le cache
-    int *warmup_p = randomPolynomial(MAX_TAILLE_POLY);
-    int *warmup_q = randomPolynomial(MAX_TAILLE_POLY);
-    int warmup_res;
-    int *warmup_tmp = naiveMultiplyPolynomials(warmup_p, MAX_TAILLE_POLY, warmup_q, MAX_TAILLE_POLY, &warmup_res);
-    free(warmup_tmp);
-    free(warmup_p);
-    free(warmup_q);
+    // //rechauffer le cache
+    // int *warmup_p = randomPolynomial(MAX_TAILLE_POLY);
+    // int *warmup_q = randomPolynomial(MAX_TAILLE_POLY);
+    // int warmup_res;
+    // int *warmup_tmp = naiveMultiplyPolynomials(warmup_p, MAX_TAILLE_POLY, warmup_q, MAX_TAILLE_POLY, &warmup_res);
+    // free(warmup_tmp);
+    // free(warmup_p);
+    // free(warmup_q);
 
 
     FILE *data_NAIVE = fopen("benchmark/data_NAIVE.txt", "w");
@@ -69,9 +69,10 @@ int main(void){
 
     fclose(data_FFT);
     fclose(data_NAIVE);
+    printf("FIN DES TESTS !\n\n");
 
 
-    /* ***************************** GENERER DONNER REF GRAPH THEORIQUE  POUR RAPPORT ***************************** */
+    /* ***************************** GENERER DONNER REF GRAPH THEORIQUE  POUR RAPPORT (inutile finalement car fait avec gnuplot) ***************************** */
     // FILE *data_NAIVE_THEO = fopen("benchmark/data_NAIVE_THEO.txt", "w");
     // FILE *data_FFT_THEO = fopen("benchmark/data_FFT_THEO.txt", "w");
     // FILE *data_NAIVE_THEO_3D = fopen("benchmark/data_NAIVE_THEO_3D.txt", "w");

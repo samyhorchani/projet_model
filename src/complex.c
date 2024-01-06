@@ -99,12 +99,24 @@ Complex Complex_logarithm(Complex a) {
     return result;
 }
 
+double Complex_abs(Complex a) {
+    return sqrt(a.real * a.real + a.imag * a.imag);
+}
+
+double Complex_arg(Complex a) {
+    return atan2(a.imag, a.real);
+}
+
 Complex int_to_complex(int a){
     return (Complex){a,0};
 }
 
 Complex *tab_int_to_complex(int* tab, int size_tab){
     Complex *resultat = malloc(size_tab * sizeof(Complex));
+    if(resultat == NULL){
+        printf("erreur allocation tableau complex \n");
+        return NULL;
+    }
     for(int i = 0; i<size_tab ; i++){
         resultat[i] = int_to_complex(tab[i]);
         //display_Complex(resultat[i]);

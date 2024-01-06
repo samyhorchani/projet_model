@@ -25,7 +25,9 @@ Complex Complex_conjugate(Complex a);           // rend le conjugué d'un nombre
 Complex Complex_exponential(Complex a); // réalise la mise à l'exponentielle d'un nombre complexe e^a
 Complex Complex_power(Complex a, int n); // réalise la mise à la puissance d'un complexe en utilisant la formule de Moivre
 Complex Complex_logarithm(Complex a); //réalise le logarithme d'un nombre complexe
-Complex int_to_complex(int a); // convertit un entier en nombre complexe
+double Complex_abs(Complex a); // realise le calcul de la valeur absolue d'un nombre complexe
+double Complex_arg(Complex a); //realise le calcule de l'argument d'un nombre complexe
+Complex int_to_complex(int a); // convertie un entier en nombre complexe
 Complex *tab_int_to_complex(int* tab, int size_tab); //convertit un tableau d'entier en un tableau de nombre complexe 
 void display_Complex(Complex a); //affiche un nombre complexe sur le terminal sous la forme (a + bi)
 void display_tab_complex(Complex *tab, int size_tab); // affiche un tableau de nombre complexe sur le terminale
