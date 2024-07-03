@@ -1,5 +1,6 @@
 # Samy HORCHANI (n° étudiant 28706765)
 # Projet MODEL
+**Note obtenue : 20/20**
 
 ## Instruction de compilation
 Ce projet est composé fichier `Makefile` permettant de réaliser la compilation. Pour générer l’exécutable `main`, il suffit de taper la commande `make all`. Deux exécutables sont alors générés. 
